@@ -131,14 +131,16 @@ Also: `app/not-found.tsx` (a one-line 404 in the site style with a link home), a
 
 ### Colors (CSS variables in `globals.css`, exposed to Tailwind via `@theme inline`)
 
-| Token | Light | Dark | Use |
-|---|---|---|---|
-| `--paper` | `#F5F2EA` (warm off-white) | `#121212` | Background |
-| `--ink` | `#16150F` | `#ECE8DF` | Text |
-| `--muted` | `#6B675E` | `#9A958A` | Metadata |
-| `--rule` | `#D9D3C5` | `#2A2A2A` | Hairlines, grid |
-| `--mark` | `#D7263D` (red) | `#FF4D5E` | Signature annotations, key numbers, focus rings |
-| `--pool` | `#1C6E8C` (pool blue) | `#4FB3D9` | Links on hover, game accents |
+White is dominant and black is secondary. One light theme only, with no dark-mode switch.
+
+| Token | Value | Use |
+|---|---|---|
+| `--paper` | `#FFFFFF` | Background |
+| `--ink` | `#0A0A0A` | Text, borders, keeper |
+| `--muted` | `#5C5C5C` | Metadata |
+| `--rule` | `#E4E4E4` | Hairlines, grid |
+| `--mark` | `#D7263D` (red) | Signature annotations, key numbers, focus rings |
+| `--pool` | `#1C6E8C` (pool blue) | Links on hover, game accents |
 
 Red is a quiet nod to Manchester United and pool blue to water polo. Neither is used as a large fill; both appear only as ink-like marks.
 
@@ -188,5 +190,5 @@ A tiny penalty-shootout game in the `#play` section. It's based on Manchester Un
 - **Content in one typed file**, `content/site.ts` (headline, about, projects, experience, skills, contact), so copy edits don't touch components. All `[TODO]` items live there and are hidden from render while unset.
 - **No forms, no backend, no API routes, no analytics, no cookies, no localStorage, no third-party embeds or scripts.** Contact is a `mailto:` link plus LinkedIn and GitHub links only.
 - Fully static: `next build` must produce a static page; `npm run lint` and `next build` must pass with zero errors.
-- Responsive check at 375px, 768px, and 1280px; light and dark mode via `prefers-color-scheme`.
+- Responsive check at 375px, 768px, and 1280px.
 - Replace the default `public/*.svg` boilerplate and the "Create Next App" metadata.
