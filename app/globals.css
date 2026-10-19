@@ -1,26 +1,115 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --paper: #f5f2ea;
+  --ink: #16150f;
+  --muted: #6b675e;
+  --rule: #d9d3c5;
+  --mark: #d7263d;
+  --pool: #1c6e8c;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --paper: #121212;
+    --ink: #ece8df;
+    --muted: #9a958a;
+    --rule: #2a2a2a;
+    --mark: #ff4d5e;
+    --pool: #4fb3d9;
   }
 }
 
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-mark: var(--mark);
+  --color-pool: var(--pool);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-bricolage);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--mark);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--mark);
+  outline-offset: 3px;
+}
+
+/* Red-pen annotation: the path draws itself once its wrapper gets data-drawn. */
+.pen path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 600ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.pen[data-drawn="true"] path {
+  stroke-dashoffset: 0;
+}
+.pen-note {
+  opacity: 0;
+  transition: opacity 300ms ease 450ms;
+}
+.pen[data-drawn="true"] .pen-note {
+  opacity: 1;
+}
+
+/* Penalty Box */
+.pb-ball {
+  transition:
+    left 420ms cubic-bezier(0.2, 0.7, 0.3, 1),
+    top 420ms cubic-bezier(0.5, 0, 0.75, 0.4),
+    transform 420ms ease-out;
+}
+.pb-keeper {
+  transition:
+    left 380ms cubic-bezier(0.3, 0.8, 0.4, 1),
+    top 380ms cubic-bezier(0.3, 0.8, 0.4, 1),
+    transform 380ms cubic-bezier(0.3, 0.8, 0.4, 1);
+}
+@keyframes pb-ripple {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.025, 1.04); }
+  60% { transform: scale(0.99); }
+  100% { transform: scale(1); }
+}
+.pb-net[data-ripple="true"] {
+  animation: pb-ripple 500ms ease-out;
+  transform-origin: 50% 0%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .pen path {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
+  .pen-note {
+    transition: none;
+    opacity: 1;
+  }
+  .pb-ball,
+  .pb-keeper {
+    transition: none;
+  }
+  .pb-net[data-ripple="true"] {
+    animation: none;
+  }
 }
